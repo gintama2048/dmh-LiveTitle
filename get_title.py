@@ -77,7 +77,7 @@ def main():
 
     # 标题变化：发送通知，并更新文件
     print("标题已变化，发送通知并更新记录")
-    send_notification("B站直播间标题变化", f"新标题：{current_title}")
+    send_notification("ameng梦梦梦直播间标题变化", f"新标题：{current_title}")
     write_last_title(current_title)
     # 注意：Git 提交将由 GitHub Actions 的后续步骤完成
 
