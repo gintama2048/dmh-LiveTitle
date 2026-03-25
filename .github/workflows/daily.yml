@@ -2,7 +2,7 @@ name: Daily Dmh Live Title
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 * * * *'   # 每小时一次
   workflow_dispatch:
 
 jobs:
@@ -12,12 +12,16 @@ jobs:
       contents: write
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
+      - name: Install dependencies
+        run: pip install requests
 
       - name: Run script
         env:
