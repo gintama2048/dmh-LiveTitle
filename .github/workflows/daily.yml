@@ -2,7 +2,7 @@ name: Daily Dmh Live Title
 
 on:
   schedule:
-    - cron: '0 * * * *'   # 每小时一次
+    - cron: '*/15 * * * *'   # 每15分钟运行一次（UTC时间）
   workflow_dispatch:
 
 jobs:
