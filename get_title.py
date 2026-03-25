@@ -1,10 +1,6 @@
 import requests
 import os
 
-# 配置区（直接填入你的房间号）
-ROOM_ID = "12101556"          # 短号或长号
-SEND_KEY = "SCT328821TUPSYdanTfOvD8aUbsJdsid20"         # Server酱的SendKey
-
 def get_real_room_id(short_id):
     """通过短号获取真实房间号"""
     url = f"https://api.live.bilibili.com/room/v1/Room/room_init?id={short_id}"
