@@ -1,0 +1,29 @@
+name: Daily Bili Live Title
+
+on:
+  schedule:
+    # 每天 UTC 0:00 运行（北京时间 8:00），可调整
+    - cron: '0 0 * * *'
+  workflow_dispatch:   # 允许手动触发
+
+jobs:
+  fetch-and-notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        env:
+          ROOM_ID: ${{ secrets.ROOM_ID }}
+          SEND_KEY: ${{ secrets.SEND_KEY }}
+        run: python get_title.py
