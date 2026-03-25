@@ -8,9 +8,14 @@ on:
 jobs:
   fetch-and-notify:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write      # 授予写入仓库的权限（用于提交变更）
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true   # 保持 Git 凭证，默认 true，但显式写出
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,3 +30,11 @@ jobs:
           ROOM_ID: ${{ secrets.ROOM_ID }}
           SEND_KEY: ${{ secrets.SEND_KEY }}
         run: python get_title.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add last_title.txt
+          # 仅当有变更时才提交
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update last title" && git push)
