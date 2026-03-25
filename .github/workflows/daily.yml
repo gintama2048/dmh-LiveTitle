@@ -1,8 +1,8 @@
-name: Daily DMH Live Title
+name: Daily Dmh Live Title
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 * * * *'   # 每小时一次
   workflow_dispatch:
 
 jobs:
@@ -15,16 +15,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1          # 只获取最新提交，加速 checkout
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
-          cache: 'pip'            # 缓存 pip 依赖
+          cache: 'pip'          # 启用 pip 缓存，现在会基于 requirements.txt 工作
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install -r requirements.txt
 
       - name: Run script
         env:
